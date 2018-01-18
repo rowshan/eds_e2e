@@ -1,0 +1,42 @@
+FROM python:2.7-slim
+
+#RUN mkdir -p /home/elastest/eds/eds-e2e
+
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+ADD . /app
+
+
+# install packages and clean up
+RUN printf "Starting update...\n" && \
+    apt-get update -qq && \
+    printf "Update finished.\n" && \
+    printf "Starting dist-upgrade...\n" && \
+    apt-get dist-upgrade -y > /dev/null && \
+    printf "Upgrade finished.\n" && \
+    printf "Starting install...\n" && \
+    apt-get install -y \
+    curl \
+    build-essential \
+    netbase \
+    iproute2 \
+    python-pip \
+    python-dev \
+    libev-dev \
+    gcc \
+    make \
+    automake \
+    jq > /dev/null && \
+    apt-get clean && \
+    printf "Installation and cleanup finished.\n"
+
+
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+# Make port 80 available to the world outside this container
+EXPOSE 7070
+
+CMD ["python"]
