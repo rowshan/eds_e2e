@@ -4,7 +4,7 @@ import os
 import sys
 
 
-class TJob():
+class TJob(unittest.TestCase):
 	proxyurl = "http://" + str(sys.argv[1]) + ":8080/"
 	proxies = {'http': proxyurl, 'https': proxyurl}
 
@@ -12,7 +12,7 @@ class TJob():
 		s = requests.Session()
 		response = s.get('http://www.elastest.io/', proxies=self.proxies, verify=False)
 		# response=s.get('http://etm:8091/')
-		print response.headers
+		print (response.headers)
 		assert "Elastest" in response.text
 
 
