@@ -11,7 +11,7 @@ RUN printf "Starting update...\n" && \
     apt-get dist-upgrade -y > /dev/null && \
     printf "Upgrade finished.\n" && \
     printf "Starting install...\n" && \
-    apt-get install -y \
+    apt-get install -y apt-transport-https \
     git \
     curl \
     gnupg2 \
