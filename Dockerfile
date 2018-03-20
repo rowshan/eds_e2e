@@ -30,6 +30,7 @@ RUN printf "Starting update...\n" && \
 
 RUN pip install -r requirements.txt
 
+#ENTRYPOINT ["/bin/sh",  "run.sh"]
 
 ENTRYPOINT ["python"]
 CMD ["app.py"]
